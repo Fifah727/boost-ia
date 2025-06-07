@@ -1,0 +1,52 @@
+# Prédiction du genre à partir du prénom
+
+# Description
+Ce projet apprend à dire si un prénom est un prénom d'une fille ou de garçon.
+
+# Comment ça marche  
+- On transforme les prénoms en chiffres grâce aux lettres.  
+- Le modèle apprend à partir d’exemples pour faire moins d’erreurs. (nat2022.csv)
+- On teste le modèle sur des nouveaux prénoms.  
+- On peut prédire le genre de n’importe quel prénom.
+
+# Versions
+On a 2 versions: 
+- l'un utilise un perceptron simple codé from scratch (rna.1.1)
+AVANT ENTRAINEMENT
+'Olivia' est prenom de : fille 
+'Olivier' est prenom de : fille
+PENDANT ENTRAINEMENT 1
+Époque 1 - Erreurs : 122707 - Précision : 0.80
+PENDANT ENTRAINEMENT 2
+Époque 2 - Erreurs : 120530 - Précision : 0.80
+PENDANT ENTRAINEMENT 3
+Époque 3 - Erreurs : 120192 - Précision : 0.79
+APRES ENTRAINEMENT
+'Olivia' est prenom de : fille
+'Olivier' est prenom de : garçon
+
+- TensorFlow pour entraîner le modèle (rna.1.2)
+exemple de resulat :
+[AVANT ENTRAÎNEMENT] Précision : 0.54
+Epoch 1/3
+16058/16058 ━━━━━━━━━━━━━━━━━━━━ 91s 5ms/step - accuracy: 0.7652 - loss: 0.5088     
+Epoch 2/3
+16058/16058 ━━━━━━━━━━━━━━━━━━━━ 82s 5ms/step - accuracy: 0.8316 - loss: 0.3974    
+Epoch 3/3
+16058/16058 ━━━━━━━━━━━━━━━━━━━━ 104s 6ms/step - accuracy: 0.8367 - loss: 0.3833   
+[APRÈS ENTRAÎNEMENT] Précision : 0.84
+'Olivia' prédit comme : Fille
+'Olivier' prédit comme : Garçon
+
+# REQUIREMENTS
+python v3.12.9
+pip
+numpy
+pandas
+scikit-learn
+tensorflow 2.19.0
+
+# Auteur
+FIFALIANA SAROBIDY
+ssarobidyfifaliana@gmail.com
+01/06/2025

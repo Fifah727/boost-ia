@@ -1,0 +1,19 @@
+# Environnement virtuel
+venv/
+
+# Fichiers Python compilés
+__pycache__/
+*.py[cod]
+
+# Fichiers temporaires
+*.log
+*.tmp
+*.swp
+
+# Configuration d'éditeur
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
