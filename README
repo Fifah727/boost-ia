@@ -1,52 +1,157 @@
-# Prédiction du genre à partir du prénom
 
-# Description
-Ce projet apprend à dire si un prénom est un prénom d'une fille ou de garçon.
+# Prédiction du genre à partir d’un prénom avec un Perceptron
 
-# Comment ça marche  
-- On transforme les prénoms en chiffres grâce aux lettres.  
-- Le modèle apprend à partir d’exemples pour faire moins d’erreurs. (nat2022.csv)
-- On teste le modèle sur des nouveaux prénoms.  
-- On peut prédire le genre de n’importe quel prénom.
+Ce projet propose une approche simple de **classification binaire** basée sur un **perceptron** pour prédire le **genre** (fille ou garçon) d’un prénom, en utilisant des n-grammes de caractères pour représenter les prénoms.
 
-# Versions
-On a 2 versions: 
-- l'un utilise un perceptron simple codé from scratch (rna.1.1)
-AVANT ENTRAINEMENT
-'Olivia' est prenom de : fille 
-'Olivier' est prenom de : fille
-PENDANT ENTRAINEMENT 1
-Époque 1 - Erreurs : 122707 - Précision : 0.80
-PENDANT ENTRAINEMENT 2
-Époque 2 - Erreurs : 120530 - Précision : 0.80
-PENDANT ENTRAINEMENT 3
-Époque 3 - Erreurs : 120192 - Précision : 0.79
-APRES ENTRAINEMENT
+## 🧠 Objectif
+
+L’objectif est d’entraîner un perceptron (sans bibliothèque de deep learning) pour apprendre à distinguer les prénoms masculins et féminins à partir d’un ensemble de données réelles.
+
+---
+
+## 📁 Données
+
+Le fichier d’entrée est :
+
+- `nat2022.csv` : un fichier CSV contenant deux colonnes principales :
+  - `preusuel` : le prénom
+  - `genre` : le genre associé (`fille` ou `garçon`)
+
+Exemple :
+
+| preusuel | genre  |
+|----------|--------|
+| Emma     | fille  |
+| Léo      | garçon |
+
+---
+
+## ⚙️ Description du fonctionnement
+
+### 1. Chargement des données
+
+Les données sont chargées avec `pandas`.
+
+```python
+donnees = pd.read_csv("nat2022.csv")
+````
+
+### 2. Prétraitement
+
+* Les prénoms sont vectorisés en n-grammes de caractères (1 et 2 caractères) via `CountVectorizer`.
+* Le genre est transformé en valeur binaire : `1` pour fille, `0` pour garçon.
+
+```python
+vectoriseur = CountVectorizer(analyzer='char', ngram_range=(1, 2))
+X = vectoriseur.fit_transform(donnees['preusuel'].astype(str)).toarray()
+y = np.array([1 if genre == 'fille' else 0 for genre in donnees['genre']])
+```
+
+### 3. Séparation des données
+
+On sépare les données en ensemble d'entraînement et de test (80% / 20%).
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
+
+### 4. Perceptron
+
+* Fonction d’activation : seuil à zéro.
+* Poids et biais initialisés à zéro.
+* Apprentissage sur plusieurs époques avec une règle de mise à jour simple.
+
+```python
+def fonction_act(x):
+    return 1 if x >= 0 else 0
+```
+
+---
+
+## 🔁 Entraînement
+
+Le perceptron est entraîné pendant plusieurs époques (`nombre_epochs = 3`) :
+
+```python
+for epoch in range(nombre_epochs):
+    for i in range(len(X_train)):
+        # Prédiction, calcul de l'erreur
+        # Mise à jour des poids
+```
+
+---
+
+## 🔍 Prédiction
+
+Fonction de prédiction personnalisée :
+
+```python
+def predire_prenom(prenom):
+    ...
+    return "fille" ou "garçon"
+```
+
+---
+
+## 📈 Exemple de sortie
+
+### Avant apprentissage
+
+```
+'Olivia' est prenom de : garçon
+'Olivier' est prenom de : garçon
+```
+
+### Après apprentissage
+
+```
 'Olivia' est prenom de : fille
 'Olivier' est prenom de : garçon
+```
 
-- TensorFlow pour entraîner le modèle (rna.1.2)
-exemple de resulat :
-[AVANT ENTRAÎNEMENT] Précision : 0.54
-Epoch 1/3
-16058/16058 ━━━━━━━━━━━━━━━━━━━━ 91s 5ms/step - accuracy: 0.7652 - loss: 0.5088     
-Epoch 2/3
-16058/16058 ━━━━━━━━━━━━━━━━━━━━ 82s 5ms/step - accuracy: 0.8316 - loss: 0.3974    
-Epoch 3/3
-16058/16058 ━━━━━━━━━━━━━━━━━━━━ 104s 6ms/step - accuracy: 0.8367 - loss: 0.3833   
-[APRÈS ENTRAÎNEMENT] Précision : 0.84
-'Olivia' prédit comme : Fille
-'Olivier' prédit comme : Garçon
+---
 
-# REQUIREMENTS
-python v3.12.9
-pip
-numpy
-pandas
-scikit-learn
-tensorflow 2.19.0
+## 📦 Dépendances
 
-# Auteur
-FIFALIANA SAROBIDY
-ssarobidyfifaliana@gmail.com
-01/06/2025
+* Python ≥ 3.7
+* numpy
+* pandas
+* scikit-learn
+
+Installation :
+
+```bash
+pip install numpy pandas scikit-learn
+```
+
+---
+
+## ▶️ Lancer le script
+
+Place le fichier `nat2022.csv` dans le même dossier que le script, puis exécute :
+
+```bash
+python script.py
+```
+
+---
+
+## 📚 Remarques
+
+* Le modèle est très simple et peut être amélioré avec :
+
+  * Plus de données
+  * D’autres techniques de vectorisation (TF-IDF, embeddings)
+  * Des modèles plus avancés (réseaux de neurones, SVM, etc.)
+* L’approche reste pédagogique pour comprendre les bases de la classification et du perceptron.
+
+---
+
+## 👩‍💻 Auteur
+
+**Fifaliana Sarobidy**
+Développeuse Full-Stack, passionnée d’IA et d’applications intelligentes.
+[GitHub](#) • [LinkedIn](#) • EMIT, 2025
+
+---
+
