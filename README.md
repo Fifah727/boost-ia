@@ -150,8 +150,7 @@ python script.py
 ## 👩‍💻 Auteur
 
 **Fifaliana Sarobidy**
-Développeuse Full-Stack, passionnée d’IA et d’applications intelligentes.
-[GitHub](#) • [LinkedIn](#) • EMIT, 2025
+DA2I L3 033I23 • EMIT, 2025
 
 ---
 
